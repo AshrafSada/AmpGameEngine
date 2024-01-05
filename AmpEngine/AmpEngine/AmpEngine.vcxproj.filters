@@ -1,2 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="App">
+      <UniqueIdentifier>{9efcd39b-dd3a-4514-a20f-c950772bf468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platforms">
+      <UniqueIdentifier>{a9377c5d-89db-4ff7-a1e8-df92a0987573}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platforms\WinOs">
+      <UniqueIdentifier>{f4323a52-23dc-4801-ad5c-b39a252c4776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platforms\WinOs\WinHandlers">
+      <UniqueIdentifier>{1873b9b1-34f1-4d70-9db2-02707fd3e44e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engines">
+      <UniqueIdentifier>{bedae4af-9167-415b-bff0-781c32bc9073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engines\Graphics">
+      <UniqueIdentifier>{39159705-0acb-4607-bce2-2a80f903e515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engines\Games">
+      <UniqueIdentifier>{3cb6333a-8a0d-4572-a00c-a3d88af9cd05}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowUi.cpp">
+      <Filter>Platforms\WinOs</Filter>
+    </ClCompile>
+    <ClCompile Include="AppWindow.cpp">
+      <Filter>Platforms\WinOs\WinHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsEngine.cpp">
+      <Filter>Engines\Graphics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WindowUi.h">
+      <Filter>Platforms\WinOs</Filter>
+    </ClInclude>
+    <ClInclude Include="AppWindow.h">
+      <Filter>Platforms\WinOs\WinHandlers</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsEngine.h">
+      <Filter>Engines\Graphics</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
