@@ -1,5 +1,6 @@
 #pragma once
 #include "WindowUi.h"
+#include "GraphicsEngine.h"
 
 class AppWindow : public WindowUi {
 public:

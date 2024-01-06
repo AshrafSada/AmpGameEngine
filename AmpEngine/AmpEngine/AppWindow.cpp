@@ -8,6 +8,7 @@ AppWindow::~AppWindow( ) {
 
 void AppWindow::onCreate( ) {
     WindowUi::onCreate( );
+    GraphicsEngine::GetInstance( )->Init( );
 }
 
 void AppWindow::onUpdate( ) {
@@ -16,4 +17,6 @@ void AppWindow::onUpdate( ) {
 
 void AppWindow::onDestroy( ) {
     WindowUi::onDestroy( );
+    // Release the graphics engine
+    GraphicsEngine::GetInstance( )->Release( );
 }
