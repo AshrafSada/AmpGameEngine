@@ -12,6 +12,7 @@ C/C++ 3D Game Engine currently using DirectX 11.
       - [Graphics APIs](#graphics-apis)
         - [Why Multiple Graphics APIs?](#why-multiple-graphics-apis)
       - [DirectX 11](#directx-11)
+        - [Swap Chain](#swap-chain)
         - [Why DirectX 11 Not 12?](#why-directx-11-not-12)
     - [Game Engine](#game-engine)
 
@@ -74,6 +75,59 @@ We can later add support for other platforms like Linux and Mac.
 #### DirectX 11
 
 DirectX 11 is proven to be the best graphics API for Windows, despite that DirectX 12 is included in Windows 10, game developers still prefer DirectX 11.
+
+The graphics engine is built on top of DirectX 11.
+
+DirectX 11 has these main parts:
+
+1. **DirectX Device**: Direct3D device is the rendering component of Direct3D.
+2. **DirectX Context**: Direct3D device context is used to set pipeline state and generate rendering commands.
+3. **DirectX Swap Chain**: a series of virtual framebuffers used by the graphics card and graphics API for frame rate stabilization, stutter reduction, and several other purposes.
+
+##### Swap Chain
+
+The swap chain is a collection of buffers that are used for rendering frames to the screen, using both system and video RAM.
+
+In the general use case, the swap chain is a collection of two buffers, the front buffer and the back buffer.
+
+The front buffer is the buffer that is currently being displayed on the screen, it utilizes the video RAM (GPU RAM), while the back buffer is the buffer that is currently being rendered to, and utilizes (GPU RAM + System RAM).
+
+After the immediate context (device context) is done rendering to the back buffer, the swap chain presents the back buffer by swapping the two buffers.
+
+This method of flipping the buffers is called **double buffering**.
+
+It is called swap chain because it is a chain of buffers that are swapped, between the front buffer and the back buffer.
+
+:bulb: ***Note***: The swap chain is very important rendering method, it should be loosely-coupled, from the device and device context.*
+
+##### Understanding Device Context
+
+The device context is the interface between the application and the GPU.
+
+The GPU is a separate processor that is designed to handle graphics and image processing, which has 2 driver parts (Hardware Driver and Software Driver).
+
+The device driver is designed to handle input/output operations, redirected to the GPU by the device context.
+
+The device context is the interface between the application and the GPU, it is used to set pipeline state and ***generate rendering commands***.
+
+Device context has 2 types:
+
+1. **Immediate Context**: used for rendering commands.
+2. **Deferred Context**: used for setting pipeline state.
+
+Immediate context is used for:
+
+1. Rendering commands list, or single command at a time.
+2. Direct rendering to the GPU by it's driver (using driver sub-routines).
+3. Immediate rendering to the back buffer.
+
+Deferred context is used for:
+
+1. Setting pipeline state.
+2. Recording rendering commands to a command list.
+3. Used for multi-threading.
+
+:bulb: ***Note***: The graphics engine currently uses only Immediate Context.
 
 ##### Why DirectX 11 Not 12?
 

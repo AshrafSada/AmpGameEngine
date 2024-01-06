@@ -22,6 +22,9 @@
     <Filter Include="Engines\Games">
       <UniqueIdentifier>{3cb6333a-8a0d-4572-a00c-a3d88af9cd05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engines\Swapping">
+      <UniqueIdentifier>{97fd9546-3916-4627-97cb-7f02f1f796c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -36,6 +39,9 @@
     <ClCompile Include="GraphicsEngine.cpp">
       <Filter>Engines\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>Engines\Swapping</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowUi.h">
@@ -46,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="GraphicsEngine.h">
       <Filter>Engines\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>Engines\Swapping</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

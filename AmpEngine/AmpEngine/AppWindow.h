@@ -1,6 +1,7 @@
 #pragma once
 #include "WindowUi.h"
 #include "GraphicsEngine.h"
+#include "SwapChain.h"
 
 class AppWindow : public WindowUi {
 public:
@@ -11,4 +12,7 @@ public:
     void onCreate( ) override;
     void onUpdate( ) override;
     void onDestroy( ) override;
+
+private:
+    SwapChain* m_swap_chain;
 };

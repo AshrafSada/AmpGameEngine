@@ -22,6 +22,11 @@ public:
 
     ~WindowUi( );
 
+public:
+    RECT getClientWindowRect( );
+    // Set window event handlers
+    void setHwnd( HWND hwnd );
+
 protected:
     HWND m_hwnd;
     bool m_is_running;

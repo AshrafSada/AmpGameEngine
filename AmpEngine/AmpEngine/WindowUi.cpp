@@ -9,6 +9,12 @@ LRESULT CALLBACK WindowProc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam 
     switch ( uMsg ) {
         case WM_CREATE:
         {
+            // collect events fired when the window is created
+            WindowUi* window = ( WindowUi* )( ( LPCREATESTRUCT )lParam )->lpCreateParams;
+            // store the window pointer in the window class for later use
+            SetWindowLongPtr( hwnd, GWLP_USERDATA, ( LONG_PTR )window );
+            // set window pointer to the user data of the window
+            g_window->setHwnd( hwnd );
             // this message is read when the window is created
             g_window->onCreate( );
             return 0;
@@ -16,6 +22,8 @@ LRESULT CALLBACK WindowProc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam 
         // this message is read when the window is closed
         case WM_DESTROY:
         {
+            // collect events fired when the window is destroyed
+            WindowUi* window = ( WindowUi* )GetWindowLong( hwnd, GWLP_USERDATA );
             // close the application entirely
             g_window->onDestroy( );
             PostQuitMessage( 0 );
@@ -61,17 +69,17 @@ bool WindowUi::init( ) {
 
     // create the window and use the result as the handle
     m_hwnd = CreateWindowEx( NULL,
-                            WINDOW_CLASS_NAME,    // name of the window class
-                            L"AmpEngine",         // title of the window
-                            WS_OVERLAPPEDWINDOW,  // window style
-                            CW_USEDEFAULT,        // x-position of the window
-                            CW_USEDEFAULT,        // y-position of the window
-                            1024,                 // width of the window
-                            768,                  // height of the window
-                            NULL,                 // we have no parent window, NULL
-                            NULL,                 // we aren't using menus, NULL
-                            GetModuleHandle( NULL ), // application handle
-                            NULL );               // used with multiple windows, NULL
+        WINDOW_CLASS_NAME,    // name of the window class
+        L"AmpEngine",         // title of the window
+        WS_OVERLAPPEDWINDOW,  // window style
+        CW_USEDEFAULT,        // x-position of the window
+        CW_USEDEFAULT,        // y-position of the window
+        1024,                 // width of the window
+        768,                  // height of the window
+        NULL,                 // we have no parent window, NULL
+        NULL,                 // we aren't using menus, NULL
+        GetModuleHandle( NULL ), // application handle
+        NULL );               // used with multiple windows, NULL
 
     // check if window creation failed
     if ( !m_hwnd ) {
@@ -145,5 +153,14 @@ void WindowUi::onDestroy( ) {
     m_is_running = false;
 }
 
-WindowUi::~WindowUi( ) {
+WindowUi::~WindowUi( ) { }
+
+RECT WindowUi::getClientWindowRect( ) {
+    RECT rc;
+    GetClientRect( this->m_hwnd, &rc );
+    return rc;
+}
+
+void WindowUi::setHwnd( HWND hwnd ) {
+    this->m_hwnd = hwnd;
 }
