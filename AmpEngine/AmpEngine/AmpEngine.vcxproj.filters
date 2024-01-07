@@ -25,6 +25,9 @@
     <Filter Include="Engines\Swapping">
       <UniqueIdentifier>{97fd9546-3916-4627-97cb-7f02f1f796c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engines\Contexts">
+      <UniqueIdentifier>{5a5ab3a9-bc71-4e22-9fe3-efdc04f5e886}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -42,6 +45,9 @@
     <ClCompile Include="SwapChain.cpp">
       <Filter>Engines\Swapping</Filter>
     </ClCompile>
+    <ClCompile Include="ImDeviceContext.cpp">
+      <Filter>Engines\Contexts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowUi.h">
@@ -55,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="SwapChain.h">
       <Filter>Engines\Swapping</Filter>
+    </ClInclude>
+    <ClInclude Include="ImDeviceContext.h">
+      <Filter>Engines\Contexts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

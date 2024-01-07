@@ -1,6 +1,7 @@
 #pragma once
 #include "GraphicsEngine.h"
 
+class ImDeviceContext;
 class SwapChain {
 public:
     SwapChain( );
@@ -11,4 +12,8 @@ public:
 
 private:
     IDXGISwapChain* m_swap_chain;
+    ID3D11RenderTargetView* m_rtv;
+
+private:
+    friend class ImDeviceContext;
 };

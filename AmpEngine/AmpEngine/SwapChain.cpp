@@ -2,6 +2,7 @@
 
 SwapChain::SwapChain( ) {
     m_swap_chain = nullptr;
+    m_rtv = nullptr;
 }
 
 SwapChain::~SwapChain( ) {
@@ -35,8 +36,20 @@ bool SwapChain::Init( HWND hwnd, UINT width, UINT height ) {
     // set to windowed mode
     swap_chain_desc.Windowed = TRUE;
 
-    // create swap chain using factory method
-    HRESULT swResult = GraphicsEngine::GetInstance( )->m_dxgi_factory->CreateSwapChain( device, &swap_chain_desc, &m_swap_chain );
+    // create swap chain using factory method from GraphicsEngine
+    HRESULT swResult = GraphicsEngine::GetInstance( )->m_dxgi_factory->CreateSwapChain( device,
+                                                                                        &swap_chain_desc,
+                                                                                        &m_swap_chain );
+
+    // get back buffer from swap chain, and create render target view using back buffer
+    if ( SUCCEEDED( swResult ) ) {
+        ID3D11Texture2D* back_buffer = nullptr;
+        m_swap_chain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&back_buffer );
+        // create render target view using back buffer
+        device->CreateRenderTargetView( back_buffer, NULL, &m_rtv );
+        // free memory for back buffer
+        back_buffer->Release( );
+    }
 
     // check if swap chain was created successfully
     if ( FAILED( swResult ) ) {

@@ -7,6 +7,16 @@ const LPCWSTR WINDOW_CLASS_NAME = L"AmpEngineWindowClass";
 LRESULT CALLBACK WindowProc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam ) {
     // sort through and find what code to run for the message given
     switch ( uMsg ) {
+        // this is a test
+        /*case WM_PAINT:
+        {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint( hwnd, &ps );
+            TextOut( hdc, 5, 5, L"Hello, World!", 13 );
+            EndPaint( hwnd, &ps );
+            ReleaseDC( hwnd, hdc );
+            break;
+        }*/
         case WM_CREATE:
         {
             // collect events fired when the window is created
@@ -23,7 +33,7 @@ LRESULT CALLBACK WindowProc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam 
         case WM_DESTROY:
         {
             // collect events fired when the window is destroyed
-            WindowUi* window = ( WindowUi* )GetWindowLong( hwnd, GWLP_USERDATA );
+            WindowUi* window = ( WindowUi* )GetWindowLongPtr( hwnd, GWLP_USERDATA );
             // close the application entirely
             g_window->onDestroy( );
             PostQuitMessage( 0 );
@@ -70,7 +80,7 @@ bool WindowUi::init( ) {
     // create the window and use the result as the handle
     m_hwnd = CreateWindowEx( NULL,
         WINDOW_CLASS_NAME,    // name of the window class
-        L"AmpEngine",         // title of the window
+        L"Amp Game Engine",         // title of the window
         WS_OVERLAPPEDWINDOW,  // window style
         CW_USEDEFAULT,        // x-position of the window
         CW_USEDEFAULT,        // y-position of the window
@@ -153,7 +163,8 @@ void WindowUi::onDestroy( ) {
     m_is_running = false;
 }
 
-WindowUi::~WindowUi( ) { }
+WindowUi::~WindowUi( ) {
+}
 
 RECT WindowUi::getClientWindowRect( ) {
     RECT rc;
