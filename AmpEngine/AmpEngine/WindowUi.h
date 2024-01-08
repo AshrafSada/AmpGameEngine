@@ -19,8 +19,8 @@ public:
     };
     // implemented in the base class and can be overridden in the derived class
     virtual void onDestroy( );
-
-    ~WindowUi( );
+public:
+    virtual ~WindowUi( );
 
 public:
     RECT getClientWindowRect( );

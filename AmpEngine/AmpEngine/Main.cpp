@@ -5,7 +5,7 @@ int main( ) {
     std::cout << "Amp Engine Running..." << std::endl;
 
     AppWindow app;
-    // HACK: on app.init( ) only we set the while to is running to prevent
+    // HACK: check for app.init( ) and run while loop only if true
     // multiple window creation, that waht is running means
     if ( app.init( ) == true ) {
         while ( app.isRunning( ) ) {

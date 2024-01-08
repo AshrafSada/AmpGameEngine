@@ -46,7 +46,9 @@ bool SwapChain::Init( HWND hwnd, UINT width, UINT height ) {
         ID3D11Texture2D* back_buffer = nullptr;
         m_swap_chain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&back_buffer );
         // create render target view using back buffer
-        device->CreateRenderTargetView( back_buffer, NULL, &m_rtv );
+        if ( back_buffer != nullptr ) {
+            device->CreateRenderTargetView( back_buffer, NULL, &m_rtv );
+        }
         // free memory for back buffer
         back_buffer->Release( );
     }
