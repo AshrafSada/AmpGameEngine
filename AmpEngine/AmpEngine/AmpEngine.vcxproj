@@ -22,6 +22,7 @@
     <ClCompile Include="AppWindow.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="ImDeviceContext.cpp" />
+    <ClCompile Include="LoggingBroker.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="WindowUi.cpp" />
@@ -30,6 +31,7 @@
     <ClInclude Include="AppWindow.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="ImDeviceContext.h" />
+    <ClInclude Include="LoggingBroker.h" />
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="WindowUi.h" />
   </ItemGroup>

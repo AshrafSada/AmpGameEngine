@@ -28,6 +28,9 @@
     <Filter Include="Engines\Contexts">
       <UniqueIdentifier>{5a5ab3a9-bc71-4e22-9fe3-efdc04f5e886}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logging">
+      <UniqueIdentifier>{68f8e5fb-b39e-41ea-98c0-c20f7cdd90e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="ImDeviceContext.cpp">
       <Filter>Engines\Contexts</Filter>
     </ClCompile>
+    <ClCompile Include="LoggingBroker.cpp">
+      <Filter>Logging</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowUi.h">
@@ -64,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="ImDeviceContext.h">
       <Filter>Engines\Contexts</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggingBroker.h">
+      <Filter>Logging</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -12,7 +12,7 @@ GraphicsEngine::GraphicsEngine( ) {
 GraphicsEngine::~GraphicsEngine( ) {
 }
 
-bool GraphicsEngine::Init( ) {
+bool GraphicsEngine::CreateAndInit( ) {
     // Specify the driver types
     D3D_DRIVER_TYPE driverTypes[] = {
         D3D_DRIVER_TYPE_HARDWARE,
@@ -71,7 +71,7 @@ bool GraphicsEngine::Release( ) {
     return true;
 }
 
-GraphicsEngine* GraphicsEngine::GetInstance( ) {
+GraphicsEngine* GraphicsEngine::GetSingleton( ) {
     static GraphicsEngine instance;
     return &instance;
 }

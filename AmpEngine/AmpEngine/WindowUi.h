@@ -6,8 +6,8 @@ public:
     WindowUi( );
 
     bool init( );
-    bool broadcast( );
     bool isRunning( );
+    bool broadcast( );
     bool release( );
 
     // HACK: declare virtual event handlers as pure virtual functions with empty bodies

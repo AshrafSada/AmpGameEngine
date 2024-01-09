@@ -2,6 +2,7 @@
 
 // create a window pointer
 WindowUi* g_window = nullptr;
+
 const LPCWSTR WINDOW_CLASS_NAME = L"AmpEngineWindowClass";
 // WindowProc is a callback function that handles messages sent to a window
 LRESULT CALLBACK WindowProc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam ) {
@@ -108,20 +109,23 @@ bool WindowUi::init( ) {
     return true;
 }
 
+bool WindowUi::isRunning( ) {
+    return m_is_running;
+}
+
 // this function handles the message loop
 bool WindowUi::broadcast( ) {
+    // call the update function
+    this->onUpdate( );
     MSG msg;
 
     // peek at the next message, remove it from the queue
     while ( PeekMessage( &msg, m_hwnd, NULL, NULL, PM_REMOVE ) ) {
-        // translate keystroke messages into the right format
+        // translate keystroke messages into character messages
         TranslateMessage( &msg );
-        // dispatch the message to the WindowProc function
+        // dispatch the message to the window procedure
         DispatchMessage( &msg );
     }
-
-    // call the update function
-    g_window->onUpdate( );
 
     // relax the CPU for a 1ms
     Sleep( 1 );
@@ -144,10 +148,6 @@ bool WindowUi::broadcast( ) {
     }
 
     return true;
-}
-
-bool WindowUi::isRunning( ) {
-    return m_is_running;
 }
 
 bool WindowUi::release( ) {

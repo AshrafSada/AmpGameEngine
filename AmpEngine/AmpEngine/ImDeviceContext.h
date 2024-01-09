@@ -7,7 +7,7 @@ class ImDeviceContext {
 public:
     ImDeviceContext( ID3D11DeviceContext* deviceContext );
     ~ImDeviceContext( );
-
+public:
     bool ClearRenderTargetColor( SwapChain* pSwapChain, float red, float green, float blue, float alpha );
     bool Release( );
 

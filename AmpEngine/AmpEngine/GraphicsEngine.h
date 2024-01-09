@@ -10,7 +10,7 @@ public:
     GraphicsEngine( );
     ~GraphicsEngine( );
 
-    bool Init( );
+    bool CreateAndInit( );
     bool Release( );
 
 public:
@@ -19,7 +19,7 @@ public:
 
 public:
     // singleton instance getter
-    static GraphicsEngine* GetInstance( );
+    static GraphicsEngine* GetSingleton( );
 private:
     ID3D11Device* m_d3dDevice;
     D3D_FEATURE_LEVEL m_featureLevel;

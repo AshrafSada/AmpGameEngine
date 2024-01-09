@@ -7,7 +7,7 @@ ImDeviceContext::~ImDeviceContext( ) {
 }
 
 bool ImDeviceContext::ClearRenderTargetColor( SwapChain* pSwapChain, float red, float green, float blue, float alpha ) {
-    FLOAT clear_color[4] = { red, green, blue, alpha };
+    FLOAT clear_color[] = { red, green, blue, alpha };
     m_deviceContext->ClearRenderTargetView( pSwapChain->m_rtv, clear_color );
     return true;
 }

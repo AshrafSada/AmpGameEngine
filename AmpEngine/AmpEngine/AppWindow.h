@@ -2,6 +2,10 @@
 #include "WindowUi.h"
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
+#include "ImDeviceContext.h"
+
+#include <exception>
+#include "LoggingBroker.h"
 
 class AppWindow : public WindowUi {
 public:
