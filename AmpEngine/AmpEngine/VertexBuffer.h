@@ -2,6 +2,9 @@
 #include "GraphicsEngine.h"
 #include <system_error>
 #include "LoggingBroker.h"
+#include "ImDeviceContext.h"
+
+class ImDeviceContext;
 
 class VertexBuffer {
 public:
@@ -17,6 +20,8 @@ private:
     // attributes
     UINT m_vertext_size;
     UINT m_vertext_list;
-    ID3D11Buffer* m_output_buffer;
+    ID3D11Buffer* m_buffer_pointer;
     ID3D11InputLayout* m_input_layout;
+private:
+    friend class ImDeviceContext;
 };

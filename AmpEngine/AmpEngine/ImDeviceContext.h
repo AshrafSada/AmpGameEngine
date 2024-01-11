@@ -3,6 +3,8 @@
 #include <d3d11.h>
 
 class SwapChain;
+class VertexBuffer;
+
 class ImDeviceContext {
 public:
     // constructor and destructor
@@ -14,9 +16,14 @@ public:
     bool clearRenderTargetColor( SwapChain* pSwapChain, float red, float green, float blue, float alpha );
     bool release( );
 
-    void drawTriangleSet( UINT pVertexCount, UINT pVertexStartIndex );
+public:
+    // setters
+    void setVertexBuffer( VertexBuffer* pVertextBuffer );
     void setViewPortSize( float pWidth, float pHeight );
 
+public:
+    // vertex methods
+    void DrawTriangleList( UINT pVertexCount, UINT pVertextStartIndex );
 private:
     // private fields
     ID3D11DeviceContext* m_device_context;

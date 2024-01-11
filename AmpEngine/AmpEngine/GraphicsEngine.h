@@ -23,6 +23,7 @@ public:
     // getters and setters
     ImDeviceContext* getImmediateDeviceContext( );
     SwapChain* createAndInitSwapChain( );
+    VertexBuffer* createVertexBuffer( );
 
 public:
     // singleton instance getter

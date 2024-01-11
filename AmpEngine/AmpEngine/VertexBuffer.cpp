@@ -3,7 +3,7 @@
 VertexBuffer::VertexBuffer( ) {
     m_vertext_list = 0;
     m_vertext_size = 0;
-    m_output_buffer = nullptr;
+    m_buffer_pointer = nullptr;
     m_input_layout = nullptr;
 }
 
@@ -16,8 +16,8 @@ bool VertexBuffer::load( void* pVerticesList, UINT pVertexSize, UINT pVerticesLi
         if ( m_input_layout ) {
             m_input_layout->Release( );
         }
-        if ( m_output_buffer ) {
-            m_output_buffer->Release( );
+        if ( m_buffer_pointer ) {
+            m_buffer_pointer->Release( );
         }
         // create buffer description
         D3D11_BUFFER_DESC buffDesc = { };
@@ -38,7 +38,7 @@ bool VertexBuffer::load( void* pVerticesList, UINT pVertexSize, UINT pVerticesLi
 
         // create the buffer using DX11
         auto gEngine = GraphicsEngine::getSingletonGraphEng( );
-        HRESULT vBuffHr = gEngine->m_d3dDevice->CreateBuffer( &buffDesc, &initData, &m_output_buffer );
+        HRESULT vBuffHr = gEngine->m_d3dDevice->CreateBuffer( &buffDesc, &initData, &m_buffer_pointer );
 
         // check if create buffer failed
         if ( FAILED( vBuffHr ) ) {
@@ -73,7 +73,7 @@ bool VertexBuffer::load( void* pVerticesList, UINT pVertexSize, UINT pVerticesLi
 }
 
 bool VertexBuffer::release( ) {
-    m_output_buffer->Release( );
+    m_buffer_pointer->Release( );
     m_input_layout->Release( );
     delete this;
     return true;

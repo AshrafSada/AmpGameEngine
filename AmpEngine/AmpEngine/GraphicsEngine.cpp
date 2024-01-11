@@ -61,6 +61,7 @@ bool GraphicsEngine::release( ) {
     m_dxgi_factory->Release( );
     m_d3dDevice->Release( );
     m_immediateDeviceContext->release( );
+
     return true;
 }
 
@@ -72,6 +73,11 @@ GraphicsEngine* GraphicsEngine::getSingletonGraphEng( ) {
 SwapChain* GraphicsEngine::createAndInitSwapChain( ) {
     SwapChain* swapChain = new SwapChain( );
     return swapChain;
+}
+
+VertexBuffer* GraphicsEngine::createVertexBuffer( ) {
+    VertexBuffer* vBuffer = new VertexBuffer( );
+    return vBuffer;
 }
 
 ImDeviceContext* GraphicsEngine::getImmediateDeviceContext( ) {
