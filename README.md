@@ -144,3 +144,38 @@ Common reasons why DirectX 11 is the best graphics API for Windows:
 The game engine is responsible for running the game.
 
 It includes the Graphics Engine.
+
+Before creating the game engine, we need to test the graphics engine, by creating simple shape and rendering it.
+
+Requirements for creating simple shape:
+
+1. Define the shape by vertices (Triangle has 3 vertices).
+2. Each vertex has position, color, and texture coordinates.
+3. Vertex type is defined by it's attributes (position, color, and texture coordinates).
+4. vertices are stored in a vertex buffer (memory buffer with many vertices).
+5. Vertex buffer is sent to the GPU.
+6. In DirectX, input layout is used to define the vertex type.
+7. Call the draw function to render the shape.
+
+Screen space is defined by 2D coordinates (X, Y).
+
+World space is defined by 3D coordinates (X, Y, Z).
+
+The draw function pipeline:
+
+1. Input Assembler Stage:
+    - Input layout.
+    - Vertex buffer.
+    - Primitive topology.
+2. Programmable Shaders Stage:
+    - Vertex shader.
+    - Pixel shader.
+3. Rasterizer Stage:
+    - Viewport.
+    - Rasterizer state (converting vector info to raster images).
+4. Output Merger Stage:
+    - Render target view.
+    - Depth stencil view.
+    - Blend state.
+
+We are going to draw a triangle, which is a 2D shape, so we need to define the vertices in screen space.

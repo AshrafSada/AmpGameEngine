@@ -1,48 +1,46 @@
 #include "AppWindow.h"
 
-AppWindow::AppWindow( ) {
-    m_swap_chain = nullptr;
-}
+AppWindow::AppWindow() { m_swap_chain = nullptr; }
 
-AppWindow::~AppWindow( ) {
-}
+AppWindow::~AppWindow() {}
 
-void AppWindow::onCreate( ) {
+void AppWindow::onCreate() {
     try {
-        WindowUi::onCreate( );
+        WindowUi::onCreate();
         // Create the graphics engine and initialize it
-        GraphicsEngine::GetSingleton( )->CreateAndInit( );
+        GraphicsEngine::getSingletonGraphEng()->createAndInit();
         // Create the swap chain from the factory method in the graphics engine
-        m_swap_chain = GraphicsEngine::GetSingleton( )->CreateSwapChain( );
+        m_swap_chain = GraphicsEngine::getSingletonGraphEng()->createAndInitSwapChain();
         // get client window size
-        RECT rect = this->getClientWindowRect( );
-        // init the swap chain with the window handle and window client size
-        m_swap_chain->Init( this->m_hwnd, rect.left - rect.right, rect.top - rect.bottom );
-    }
-    catch ( const std::exception& ex ) {
-        LoggingBroker::logException( LoggingBroker::LOG_LEVEL_ERROR, "Failed to create the app window", ex );
+        RECT rect = this->getClientWindowRect();
+        // init the swap chain with the size of the client window
+        //! important: deduct (right - left) and (bottom - top) otherwise the window will be too big and swap chain
+        //! will be null
+        m_swap_chain->init(this->m_hwnd, rect.right - rect.left, rect.bottom - rect.top);
+    } catch (const std::exception& ex) {
+        LoggingBroker::logException(LoggingBroker::LOG_LEVEL_ERROR, "Failed to create the app window", ex);
         throw;
     }
 }
 
-void AppWindow::onUpdate( ) {
+void AppWindow::onUpdate() {
     try {
         // Clear the render target
-        GraphicsEngine::GetSingleton( )->GetImmediateDeviceContext( )->ClearRenderTargetColor( this->m_swap_chain, 0, 0, 1, 1 );
+        GraphicsEngine::getSingletonGraphEng()->getImmediateDeviceContext()->clearRenderTargetColor(this->m_swap_chain,
+                                                                                                    0, 1, 0, 1);
         // Present the back buffer to the screen
-        this->m_swap_chain->Present( false );
-        WindowUi::onUpdate( );
-    }
-    catch ( const std::exception& ex ) {
-        LoggingBroker::logException( LoggingBroker::LOG_LEVEL_ERROR, "Failed to update the app window", ex );
+        this->m_swap_chain->present(false);
+        WindowUi::onUpdate();
+    } catch (const std::exception& ex) {
+        LoggingBroker::logException(LoggingBroker::LOG_LEVEL_ERROR, "Failed to update the app window", ex);
         throw;
     }
 }
 
-void AppWindow::onDestroy( ) {
-    WindowUi::onDestroy( );
+void AppWindow::onDestroy() {
+    WindowUi::onDestroy();
     // Release the swap chain
-    m_swap_chain->Release( );
+    m_swap_chain->release();
     // Release the graphics engine
-    GraphicsEngine::GetSingleton( )->Release( );
+    GraphicsEngine::getSingletonGraphEng()->release();
 }

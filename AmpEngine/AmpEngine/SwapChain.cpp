@@ -8,10 +8,10 @@ SwapChain::SwapChain( ) {
 SwapChain::~SwapChain( ) {
 }
 
-bool SwapChain::Init( HWND hwnd, UINT width, UINT height ) {
+bool SwapChain::init( HWND hwnd, UINT width, UINT height ) {
     try {
         // get device from GraphicsEngine
-        ID3D11Device* device = GraphicsEngine::GetSingleton( )->m_d3dDevice;
+        ID3D11Device* device = GraphicsEngine::getSingletonGraphEng( )->m_d3dDevice;
         DXGI_SWAP_CHAIN_DESC swap_chain_desc;
         // Free memory for swap_chain_desc to avoid read access violation
         ZeroMemory( &swap_chain_desc, sizeof( swap_chain_desc ) );
@@ -38,22 +38,21 @@ bool SwapChain::Init( HWND hwnd, UINT width, UINT height ) {
         swap_chain_desc.Windowed = TRUE;
 
         // create swap chain using factory method from GraphicsEngine
-        HRESULT hrSwapResult = GraphicsEngine::GetSingleton( )->m_dxgi_factory->CreateSwapChain( device,
-                                                                                            &swap_chain_desc,
-                                                                                            &m_swap_chain );
+        HRESULT hrSwapResult = GraphicsEngine::getSingletonGraphEng( )->m_dxgi_factory->CreateSwapChain( device,
+            &swap_chain_desc,
+            &m_swap_chain );
 
         // check if swap chain was created successfully before creating render target view
         if ( SUCCEEDED( hrSwapResult ) ) {
-            return true;
-
-            ID3D11Texture2D* back_buffer = NULL;
-            m_swap_chain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&back_buffer );
+            ID3D11Texture2D* back_buffer = nullptr;
+            m_swap_chain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( void** )&back_buffer );
             // create render target view using back buffer
             if ( back_buffer != nullptr ) {
                 device->CreateRenderTargetView( back_buffer, NULL, &m_rtv );
             }
             // free memory for back buffer
             back_buffer->Release( );
+            return true;
         }
         else {
             return false;
@@ -67,7 +66,7 @@ bool SwapChain::Init( HWND hwnd, UINT width, UINT height ) {
     }
 }
 
-bool SwapChain::Present( bool vsync ) {
+bool SwapChain::present( bool vsync ) {
     try {
         // present the back buffer to the screen
         if ( m_swap_chain == nullptr )
@@ -81,7 +80,7 @@ bool SwapChain::Present( bool vsync ) {
     }
 }
 
-bool SwapChain::Release( ) {
+bool SwapChain::release( ) {
     //! HACK: check swap chain memory state to avoid read access violation
     if ( m_swap_chain == nullptr ) {
         return false;

@@ -12,40 +12,33 @@ GraphicsEngine::GraphicsEngine( ) {
 GraphicsEngine::~GraphicsEngine( ) {
 }
 
-bool GraphicsEngine::CreateAndInit( ) {
+bool GraphicsEngine::createAndInit( ) {
     // Specify the driver types
-    D3D_DRIVER_TYPE driverTypes[] = {
-        D3D_DRIVER_TYPE_HARDWARE,
-        D3D_DRIVER_TYPE_WARP,
-        D3D_DRIVER_TYPE_REFERENCE
-    };
+    D3D_DRIVER_TYPE driverTypes[] = { D3D_DRIVER_TYPE_HARDWARE, D3D_DRIVER_TYPE_WARP, D3D_DRIVER_TYPE_REFERENCE };
 
     // Specify the number of driver types
     UINT totalDriverTypes = ARRAYSIZE( driverTypes );
 
     // Specify the feature levels to be used
-    D3D_FEATURE_LEVEL featureLevels[] = {
-        D3D_FEATURE_LEVEL_11_0
-    };
+    D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0 };
 
     // Specify the number of feature levels
     UINT totalFeatureLevels = ARRAYSIZE( featureLevels );
 
     // create device and device context
-    HRESULT result = 0;
+    HRESULT createDeviceResult = 0;
     ID3D11DeviceContext* m_d3dDeviceContext;
-    for ( UINT driverTypeIndex = 0; driverTypeIndex < totalDriverTypes; ) {
-        result = D3D11CreateDevice( 0, driverTypes[driverTypeIndex], 0, 0,
-            featureLevels, totalFeatureLevels, D3D11_SDK_VERSION,
-            &m_d3dDevice, &m_featureLevel, &m_d3dDeviceContext );
+    for ( UINT driverTypeIndex = 0; driverTypeIndex < totalDriverTypes;) {
+        createDeviceResult = D3D11CreateDevice( 0, driverTypes[driverTypeIndex], 0, 0, featureLevels, totalFeatureLevels,
+                                               D3D11_SDK_VERSION, &m_d3dDevice, &m_featureLevel, &m_d3dDeviceContext );
         // If the device creation was successful, break the loop
-        if ( SUCCEEDED( result ) ) {
+        if ( SUCCEEDED( createDeviceResult ) ) {
             break;
         }
         ++driverTypeIndex;
     }
 
-    if ( FAILED( result ) ) {
+    if ( FAILED( createDeviceResult ) ) {
         return false;
     }
 
@@ -61,26 +54,26 @@ bool GraphicsEngine::CreateAndInit( ) {
     return true;
 }
 
-bool GraphicsEngine::Release( ) {
+bool GraphicsEngine::release( ) {
     // release resources in order of creation
     m_dxgi_device->Release( );
     m_dxgi_adapter->Release( );
     m_dxgi_factory->Release( );
     m_d3dDevice->Release( );
-    m_immediateDeviceContext->Release( );
+    m_immediateDeviceContext->release( );
     return true;
 }
 
-GraphicsEngine* GraphicsEngine::GetSingleton( ) {
+GraphicsEngine* GraphicsEngine::getSingletonGraphEng( ) {
     static GraphicsEngine instance;
     return &instance;
 }
 
-SwapChain* GraphicsEngine::CreateSwapChain( ) {
+SwapChain* GraphicsEngine::createAndInitSwapChain( ) {
     SwapChain* swapChain = new SwapChain( );
     return swapChain;
 }
 
-ImDeviceContext* GraphicsEngine::GetImmediateDeviceContext( ) {
+ImDeviceContext* GraphicsEngine::getImmediateDeviceContext( ) {
     return this->m_immediateDeviceContext;
 }

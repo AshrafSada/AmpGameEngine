@@ -19,9 +19,6 @@
     <Filter Include="Engines\Graphics">
       <UniqueIdentifier>{39159705-0acb-4607-bce2-2a80f903e515}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engines\Games">
-      <UniqueIdentifier>{3cb6333a-8a0d-4572-a00c-a3d88af9cd05}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engines\Swapping">
       <UniqueIdentifier>{97fd9546-3916-4627-97cb-7f02f1f796c4}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="Logging">
       <UniqueIdentifier>{68f8e5fb-b39e-41ea-98c0-c20f7cdd90e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VertexBuffers">
+      <UniqueIdentifier>{a5ab5999-edaa-46fe-a814-09ffa8df9b80}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +54,9 @@
     <ClCompile Include="LoggingBroker.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>VertexBuffers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowUi.h">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="LoggingBroker.h">
       <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>VertexBuffers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

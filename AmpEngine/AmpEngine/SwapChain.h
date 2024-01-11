@@ -10,9 +10,9 @@ public:
     SwapChain( );
     ~SwapChain( );
 
-    bool Init( HWND hwnd, UINT width, UINT height );
-    bool Present( bool vsync );
-    bool Release( );
+    bool init( HWND hwnd, UINT width, UINT height );
+    bool present( bool vsync );
+    bool release( );
 
 private:
     IDXGISwapChain* m_swap_chain;
