@@ -31,6 +31,12 @@
     <Filter Include="VertexBuffers">
       <UniqueIdentifier>{a5ab5999-edaa-46fe-a814-09ffa8df9b80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engines\Shaders">
+      <UniqueIdentifier>{493562bc-f7e2-4b65-b517-2260c22aace2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engines\Shaders\VetexShaders">
+      <UniqueIdentifier>{bb3181c5-440b-4258-ab56-cd329dcc3763}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -57,6 +63,9 @@
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>VertexBuffers</Filter>
     </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>Engines\Shaders\VetexShaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowUi.h">
@@ -80,5 +89,13 @@
     <ClInclude Include="VertexBuffer.h">
       <Filter>VertexBuffers</Filter>
     </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>Engines\Shaders\VetexShaders</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader.fx">
+      <Filter>Engines\Shaders\VetexShaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

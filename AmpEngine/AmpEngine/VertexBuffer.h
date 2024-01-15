@@ -15,6 +15,7 @@ public:
     // methods
     bool load( void* pVerticesList, UINT pVertexSize, UINT pVerticesListSize, void* pShaderByteCode, UINT pShaderCodeSize );
     bool release( );
+    UINT getVericesListCount( );
 
 private:
     // attributes

@@ -179,3 +179,32 @@ The draw function pipeline:
     - Blend state.
 
 We are going to draw a triangle, which is a 2D shape, so we need to define the vertices in screen space.
+
+#### Shaders
+
+Shaders are programs that run on the GPU, they are used to process the vertices and pixels.
+
+Shaders usually are written in HLSL (High Level Shading Language), but can be written in other languages like GLSL (OpenGL Shading Language), and Cg (C for Graphics).
+
+Shaders are compiled to byte code, which is then sent to the GPU.
+
+Shaders are used to process the vertices and pixels, they are used in the programmable shaders stage as part of the graphics pipeline.
+
+Shaders types in DirectX 11:
+
+1. **Vertex Shader**: processes the vertices.
+2. **Pixel Shader**: processes the pixels.
+3. **Geometry Shader**: processes the geometry.
+4. **Hull Shader**: processes the hull-shader stage.
+5. **Domain Shader**: manages the executable program that controls the domain-stage.
+6. **Compute Shader**: manages the executable program that controls the compute-shader stage.
+
+An important concept i shaders is the **tessellation**, which is the process of breaking down or converting low-detail subdivision surface into higher-detail primitives on the GPU, by breaking up high-order surface into suitable chunks of structure for rendering.
+
+#### Input Assembler Stage
+
+The input assembler stage is the first stage in the graphics pipeline, it is responsible for:
+
+1. Input layout.
+2. Vertex buffer.
+3. Primitive topology.

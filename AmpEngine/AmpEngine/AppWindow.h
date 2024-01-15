@@ -3,6 +3,7 @@
 #include "GraphicsEngine.h"
 #include "SwapChain.h"
 #include "ImDeviceContext.h"
+#include "VertexBuffer.h"
 
 #include <exception>
 #include "LoggingBroker.h"
@@ -19,4 +20,5 @@ public:
 
 private:
     SwapChain* m_swap_chain;
+    VertexBuffer* m_vertex_buffer;
 };

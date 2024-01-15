@@ -7,6 +7,7 @@ GraphicsEngine::GraphicsEngine( ) {
     m_dxgi_adapter = 0;
     m_dxgi_factory = 0;
     m_immediateDeviceContext = 0;
+    m_blobCode = nullptr;
 }
 
 GraphicsEngine::~GraphicsEngine( ) {
@@ -30,7 +31,7 @@ bool GraphicsEngine::createAndInit( ) {
     ID3D11DeviceContext* m_d3dDeviceContext;
     for ( UINT driverTypeIndex = 0; driverTypeIndex < totalDriverTypes;) {
         createDeviceResult = D3D11CreateDevice( 0, driverTypes[driverTypeIndex], 0, 0, featureLevels, totalFeatureLevels,
-                                               D3D11_SDK_VERSION, &m_d3dDevice, &m_featureLevel, &m_d3dDeviceContext );
+            D3D11_SDK_VERSION, &m_d3dDevice, &m_featureLevel, &m_d3dDeviceContext );
         // If the device creation was successful, break the loop
         if ( SUCCEEDED( createDeviceResult ) ) {
             break;
@@ -78,6 +79,56 @@ SwapChain* GraphicsEngine::createAndInitSwapChain( ) {
 VertexBuffer* GraphicsEngine::createVertexBuffer( ) {
     VertexBuffer* vBuffer = new VertexBuffer( );
     return vBuffer;
+}
+
+VertexShader* GraphicsEngine::createVertexShader( const void* pShaderByteCode, size_t pShaderCodeSize ) {
+    VertexShader* vertexShader = new VertexShader( );
+
+    // check vertex shader is initialized
+    if ( !vertexShader->init( pShaderByteCode, pShaderCodeSize ) ) {
+        vertexShader->release( );
+        return nullptr;
+    }
+
+    return vertexShader;
+}
+
+bool GraphicsEngine::releaseCompiledShader( ) {
+    if ( m_blobCode ) {
+        m_blobCode->Release( );
+    }
+
+    return true;
+}
+
+bool GraphicsEngine::compileVertexShader( const wchar_t* pFileName, const char* pEntryPointName, const void** pShaderByteCode, size_t* pShaderCodeSize ) {
+    try {
+        // compile the vertex shader from HLSL file
+        const char* shaderTarget = "vs_5_0"; // directX 11 vertex shader
+        ID3DBlob* blobErrMsg = nullptr;
+        HRESULT comFromFileHr = D3DCompileFromFile( pFileName,
+            nullptr, nullptr, pEntryPointName,
+            shaderTarget, 0, 0, &m_blobCode, &blobErrMsg );
+
+        // check result
+        if ( FAILED( comFromFileHr ) ) {
+            if ( blobErrMsg ) {
+                // releasing error buffer from memory
+                blobErrMsg->Release( );
+            }
+            return false;
+        }
+
+        *pShaderByteCode = m_blobCode->GetBufferPointer( );
+        *pShaderCodeSize = m_blobCode->GetBufferSize( );
+
+        return true;
+    }
+    catch ( const std::exception& ex ) {
+        LoggingBroker::logException( LoggingBroker::LOG_LEVEL_ERROR,
+            "GraphicsEngine::compileVertexShader()",
+            ex );
+    }
 }
 
 ImDeviceContext* GraphicsEngine::getImmediateDeviceContext( ) {

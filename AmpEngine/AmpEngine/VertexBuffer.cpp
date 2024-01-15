@@ -73,8 +73,16 @@ bool VertexBuffer::load( void* pVerticesList, UINT pVertexSize, UINT pVerticesLi
 }
 
 bool VertexBuffer::release( ) {
-    m_buffer_pointer->Release( );
-    m_input_layout->Release( );
+    if ( m_input_layout != nullptr ) {
+        m_input_layout->Release( );
+    }
+    if ( m_buffer_pointer != nullptr ) {
+        m_buffer_pointer->Release( );
+    }
     delete this;
     return true;
+}
+
+UINT VertexBuffer::getVericesListCount( ) {
+    return this->m_vertext_list;
 }
