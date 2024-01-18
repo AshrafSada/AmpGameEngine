@@ -23,16 +23,13 @@ public:
     bool release( );
 
 public:
-    // getters and setters
+    // extended methods
     ImDeviceContext* getImmediateDeviceContext( );
     SwapChain* createAndInitSwapChain( );
     VertexBuffer* createVertexBuffer( );
+    bool compileVertexShader( const wchar_t* pFileName, const char* pEntryPointName, void** pShaderByteCode, size_t* pShaderCodeSize );
     VertexShader* createVertexShader( const void* pShaderByteCode, size_t pShaderCodeSize );
-    bool releaseCompiledShader( );
-
-public:
-    // compile commands
-    bool compileVertexShader( const wchar_t* pFileName, const char* pEntryPointName, const void** pShaderByteCode, size_t* pShaderCodeSize );
+    void releaseCompiledShader( );
 
 public:
     // singleton instance getter

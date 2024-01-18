@@ -82,10 +82,10 @@ bool SwapChain::present( bool vsync ) {
 
 bool SwapChain::release( ) {
     //! HACK: check swap chain memory state to avoid read access violation
-    if ( m_swap_chain == nullptr ) {
+    if ( m_swap_chain ) {
+        m_swap_chain->Release( );
         return false;
     }
-    m_swap_chain->Release( );
     delete this;
     return true;
 }

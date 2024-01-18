@@ -94,8 +94,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="shader.fx">
-      <Filter>Engines\Shaders\VetexShaders</Filter>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Engines\Shaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

@@ -58,7 +58,10 @@ bool VertexBuffer::load( void* pVerticesList, UINT pVertexSize, UINT pVerticesLi
         UINT inputElemDescSize = ARRAYSIZE( inputElemDesc );
 
         // create input layout
-        HRESULT inputHr = gEngine->m_d3dDevice->CreateInputLayout( inputElemDesc, inputElemDescSize, pShaderByteCode, pShaderCodeSize, &m_input_layout );
+        HRESULT inputHr = gEngine->m_d3dDevice->CreateInputLayout( inputElemDesc,
+                                                                   inputElemDescSize,
+                                                                   pShaderByteCode,
+                                                                   pShaderCodeSize, &m_input_layout );
 
         // check if input layout create failed
         if ( FAILED( inputHr ) ) {
@@ -68,13 +71,17 @@ bool VertexBuffer::load( void* pVerticesList, UINT pVertexSize, UINT pVerticesLi
         return true;
     }
     catch ( const std::exception& ex ) {
-        LoggingBroker::logException( LoggingBroker::LOG_LEVEL_ERROR, "VertexBuffer::load( void* pVerticesList, UINT pVertexSize, UINT pVerticesListSize )", ex );
+        LoggingBroker::logException( LoggingBroker::LOG_LEVEL_ERROR,
+                                     "VertexBuffer::load( void* pVerticesList, UINT pVertexSize, UINT pVerticesListSize )", ex );
     }
+
+    return true;
 }
 
 bool VertexBuffer::release( ) {
-    if ( m_input_layout != nullptr ) {
+    if ( m_input_layout ) {
         m_input_layout->Release( );
+        return false;
     }
     if ( m_buffer_pointer != nullptr ) {
         m_buffer_pointer->Release( );

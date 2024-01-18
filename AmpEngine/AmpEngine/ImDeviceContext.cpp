@@ -17,6 +17,18 @@ bool ImDeviceContext::clearRenderTargetColor( SwapChain* pSwapChain, float red, 
     return true;
 }
 
+void ImDeviceContext::drawTriangleList( UINT pVertexCount, UINT pStartVertexIndex ) {
+    // triangle list
+    m_device_context->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
+    m_device_context->Draw( pVertexCount, pStartVertexIndex );
+}
+
+void ImDeviceContext::drawTriangleStrip( UINT pVertexCount, UINT pStartVertexIndex ) {
+    // trinagle strip
+    m_device_context->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP );
+    m_device_context->Draw( pVertexCount, pStartVertexIndex );
+}
+
 bool ImDeviceContext::release( ) {
     m_device_context->Release( );
     delete this;
@@ -42,6 +54,10 @@ void ImDeviceContext::setViewPortSize( float pWidth, float pHeight ) {
 
     // call RS Set viewport
     m_device_context->RSSetViewports( 1, &viewPort );
+}
+
+void ImDeviceContext::setVertexShader( VertexShader* pVertexShader ) {
+    m_device_context->VSSetShader( pVertexShader->m_vertex_shader, nullptr, 0 );
 }
 
 void ImDeviceContext::DrawTriangleList( UINT pVertexCount, UINT pVertextStartIndex ) {

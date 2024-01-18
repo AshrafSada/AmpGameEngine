@@ -7,14 +7,9 @@ VertexShader::VertexShader( ) {
 VertexShader::~VertexShader( ) {
 }
 
-void VertexShader::release( ) {
-    if ( m_vertex_shader != nullptr ) {
-        m_vertex_shader->Release( );
-    }
-    delete this;
-}
-
 bool VertexShader::init( const void* pShaderByteCode, size_t pShaderCodeSize ) {
+    if ( m_vertex_shader ) m_vertex_shader->Release( );
+
     try {
         // get instance of graphics engine
         auto gEngine = GraphicsEngine::getSingletonGraphEng( );
@@ -36,4 +31,13 @@ bool VertexShader::init( const void* pShaderByteCode, size_t pShaderCodeSize ) {
                                      "VertexShader::init( void* pShaderByteCode, size_t pShaderCodeSize )",
                                      ex );
     }
+
+    return true;
+}
+
+void VertexShader::release( ) {
+    if ( m_vertex_shader ) {
+        m_vertex_shader->Release( );
+    }
+    delete this;
 }
