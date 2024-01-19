@@ -2,7 +2,7 @@
 
 SwapChain::SwapChain( ) {
     m_swap_chain = { 0 };
-    m_rtv = { 0 };
+    m_render_target_view = { 0 };
 }
 
 SwapChain::~SwapChain( ) {
@@ -10,8 +10,9 @@ SwapChain::~SwapChain( ) {
 
 bool SwapChain::init( HWND hwnd, UINT width, UINT height ) {
     try {
-        // get device from GraphicsEngine
+        // get d3d device from GraphicsEngine
         ID3D11Device* device = GraphicsEngine::getSingletonGraphEng( )->m_d3dDevice;
+        // create swap chain description
         DXGI_SWAP_CHAIN_DESC swap_chain_desc;
         // Free memory for swap_chain_desc to avoid read access violation
         ZeroMemory( &swap_chain_desc, sizeof( swap_chain_desc ) );
@@ -37,26 +38,36 @@ bool SwapChain::init( HWND hwnd, UINT width, UINT height ) {
         // set to windowed mode
         swap_chain_desc.Windowed = TRUE;
 
-        // create swap chain using factory method from GraphicsEngine
+        // create swap chain using DXGI factory method from GraphicsEngine
         HRESULT hrSwapResult = GraphicsEngine::getSingletonGraphEng( )->m_dxgi_factory->CreateSwapChain( device,
             &swap_chain_desc,
             &m_swap_chain );
 
-        // check if swap chain was created successfully before creating render target view
-        if ( SUCCEEDED( hrSwapResult ) ) {
-            ID3D11Texture2D* back_buffer = nullptr;
-            m_swap_chain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( void** )&back_buffer );
-            // create render target view using back buffer
-            if ( back_buffer != nullptr ) {
-                device->CreateRenderTargetView( back_buffer, NULL, &m_rtv );
-            }
-            // free memory for back buffer
-            back_buffer->Release( );
-            return true;
-        }
-        else {
+        // check swap chain creation result
+        if ( FAILED( hrSwapResult ) ) {
             return false;
         }
+
+        // create 2D Texture for back buffer
+        ID3D11Texture2D* back_buffer = nullptr;
+        // get back buffer from swap chain
+        hrSwapResult = m_swap_chain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( void** )&back_buffer );
+
+        // check back buffer creation result
+        if ( FAILED( hrSwapResult ) ) {
+            return false;
+        }
+
+        // create render target view for back buffer
+        hrSwapResult = device->CreateRenderTargetView( back_buffer, NULL, &m_render_target_view );
+
+        // check render target view creation result
+        if ( FAILED( hrSwapResult ) ) {
+            return false;
+        }
+
+        // free memory for back buffer
+        back_buffer->Release( );
 
         return true;
     }

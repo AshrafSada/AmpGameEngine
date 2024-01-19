@@ -34,9 +34,9 @@ void AppWindow::onCreate( ) {
     try {
         WindowUi::onCreate( );
         // Create the graphics engine and initialize it
-        GraphicsEngine::getSingletonGraphEng( )->createAndInit( );
+        GraphicsEngine::getSingletonGraphEng( )->init( );
         // Create the swap chain from the factory method in the graphics engine
-        m_swap_chain = GraphicsEngine::getSingletonGraphEng( )->createAndInitSwapChain( );
+        m_swap_chain = GraphicsEngine::getSingletonGraphEng( )->initSwapChain( );
         // get client window size
         RECT rect = this->getClientWindowRect( );
         // init the swap chain with the size of the client window
@@ -46,32 +46,20 @@ void AppWindow::onCreate( ) {
 
         // create the vertex list: vert1, vert2, vert3
         // vect {x,y,z}
-        vertex vert1 { }, vert2 { }, vert3 = { };
+        vertex vert1 { }, vert2 { }, vert3 = { }, vert4 = { };
         vert1.position = vect3 { -0.5f, -0.5f, 0.0f };
         vert2.position = vect3 { -0.5f, 0.5f, 0.0f };
         vert3.position = vect3 { 0.5f, -0.5f, 0.0f };
+        vert4.position = vect3 { 0.5f, 0.5f, 0.0f };
 
-        vertex vertexList[] = { vert1, vert2, vert3, };
+        vertex vertexList[] = { vert1, vert2, vert3, vert4 };
         UINT vertexArraySize = ARRAYSIZE( vertexList );
 
-        // create the vertex buffer
+        // create vertex buffer from the factory method in the graphics engine
         m_vertex_buffer = GraphicsEngine::getSingletonGraphEng( )->createVertexBuffer( );
 
-        // create shaders
-        void* shaderByteCode = nullptr;
-        size_t shaderByteSize = 0;
-
-        // create shaders in Graphics engine
-        GraphicsEngine::getSingletonGraphEng( )->compileVertexShader( L"VertexShader.hlsl", "vsmain", &shaderByteCode, &shaderByteSize );
-
-        // create the vertex shader
-        m_vertex_shader = GraphicsEngine::getSingletonGraphEng( )->createVertexShader( shaderByteCode, shaderByteSize );
-
-        // load list of vertices
-        m_vertex_buffer->load( vertexList, sizeof( vertex ), vertexArraySize, shaderByteCode, shaderByteSize );
-
-        // release resources
-        GraphicsEngine::getSingletonGraphEng( )->releaseCompiledShader( );
+        // create vertex shader from the factory method in the graphics engine
+        m_vertex_shader = GraphicsEngine::getSingletonGraphEng( )->createVertexShader( );
     }
     catch ( const std::exception& ex ) {
         LoggingBroker::logException( LoggingBroker::LOG_LEVEL_ERROR, "Failed to create the app window", ex );
@@ -96,7 +84,7 @@ void AppWindow::onUpdate( ) {
                                                                                                     0.0f, 0.3f, 0.4f, 1.0f );
 
         // call draw triangle list
-        GraphicsEngine::getSingletonGraphEng( )->getImmediateDeviceContext( )->DrawTriangleList( m_vertex_buffer->getVericesListCount( ), 0 );
+        GraphicsEngine::getSingletonGraphEng( )->getImmediateDeviceContext( )->drawTriangleList( m_vertex_buffer->getVericesListCount( ), 0 );
 
         // Present the back buffer to the screen
         this->m_swap_chain->present( true );

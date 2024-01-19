@@ -19,30 +19,46 @@ public:
 
 public:
     // methods
-    bool createAndInit( );
+    bool init( );
     bool release( );
 
 public:
-    // extended methods
-    ImDeviceContext* getImmediateDeviceContext( );
-    SwapChain* createAndInitSwapChain( );
-    VertexBuffer* createVertexBuffer( );
-    bool compileVertexShader( const wchar_t* pFileName, const char* pEntryPointName, void** pShaderByteCode, size_t* pShaderCodeSize );
+    // compile vertex shader and release compiled shader
     VertexShader* createVertexShader( const void* pShaderByteCode, size_t pShaderCodeSize );
+    bool compileVertexShader( const wchar_t* pFileName, const char* pEntryPointName, void** pShaderByteCode, size_t* pShaderCodeSize );
     void releaseCompiledShader( );
+
+public:
+    // methods to create and initialize sub-classes
+    ImDeviceContext* getImmediateDeviceContext( );
+    SwapChain* initSwapChain( );
+    VertexBuffer* createVertexBuffer( );
+    bool setPixelShader( );
 
 public:
     // singleton instance getter
     static GraphicsEngine* getSingletonGraphEng( );
 
 private:
-    ID3D11Device* m_d3dDevice;
+    // private attributes
     D3D_FEATURE_LEVEL m_featureLevel;
-    IDXGIDevice* m_dxgi_device;
+    ID3D11Device* m_d3dDevice;
     IDXGIAdapter* m_dxgi_adapter;
+    IDXGIDevice* m_dxgi_device;
     IDXGIFactory* m_dxgi_factory;
     ImDeviceContext* m_immediateDeviceContext;
+    ID3D11DeviceContext* m_d3dDeviceContext;
+
+private:
+    // ID3D Blobs
     ID3DBlob* m_blobCode;
+    ID3DBlob* m_vertex_shader_blob;
+    ID3DBlob* m_pixel_shader_blob;
+
+private:
+    // private shaders
+    ID3D11VertexShader* m_vertex_shader;
+    ID3D11PixelShader* m_pixel_shader;
 
 private:
     // sub-classes friendship

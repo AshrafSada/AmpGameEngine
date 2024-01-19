@@ -6,15 +6,15 @@ ImDeviceContext::ImDeviceContext( ID3D11DeviceContext* deviceContext ) : m_devic
 ImDeviceContext::~ImDeviceContext( ) {
 }
 
-bool ImDeviceContext::clearRenderTargetColor( SwapChain* pSwapChain, float red, float green, float blue, float alpha ) {
+void ImDeviceContext::clearRenderTargetColor( SwapChain* pSwapChain, float red, float green, float blue, float alpha ) {
+    // clear color RGBA
     FLOAT clear_color[] = { red, green, blue, alpha };
-    m_device_context->ClearRenderTargetView( pSwapChain->m_rtv, clear_color );
-    m_device_context->OMSetRenderTargets( 1, &pSwapChain->m_rtv, NULL ); // set render target view to output merger stage
 
-    // set OM Set Render Targets
-    m_device_context->OMSetRenderTargets( 1, &pSwapChain->m_rtv, NULL );
+    // call clear render target view from DX11
+    m_device_context->ClearRenderTargetView( pSwapChain->m_render_target_view, clear_color );
 
-    return true;
+    // set OM Set Render Targets to output merger stage
+    m_device_context->OMSetRenderTargets( 1, &pSwapChain->m_render_target_view, NULL );
 }
 
 void ImDeviceContext::drawTriangleList( UINT pVertexCount, UINT pStartVertexIndex ) {
@@ -24,8 +24,9 @@ void ImDeviceContext::drawTriangleList( UINT pVertexCount, UINT pStartVertexInde
 }
 
 void ImDeviceContext::drawTriangleStrip( UINT pVertexCount, UINT pStartVertexIndex ) {
-    // trinagle strip
+    // call IA Set primitive topology to set primitive topology to input assembler stage IA
     m_device_context->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP );
+    // call the draw method from DX11 to draw triangle list from input assembler stage IA
     m_device_context->Draw( pVertexCount, pStartVertexIndex );
 }
 
@@ -38,31 +39,28 @@ bool ImDeviceContext::release( ) {
 void ImDeviceContext::setVertexBuffer( VertexBuffer* pVertextBuffer ) {
     // call IASet buffers from DX11 for vertex buffer
     UINT vbStrides = pVertextBuffer->m_vertext_size; // buffer size
-    UINT vbOffset = 0;
+    UINT vbOffset = 0; // offset
+
+    // call IASet vertex buffers from DX11 to set vertex buffer to input assembler stage IA
     m_device_context->IASetVertexBuffers( 0, 1, &pVertextBuffer->m_buffer_pointer, &vbStrides, &vbOffset );
-    // call IASet input layout from DX11 for input layout
+
+    // call IASet input layout from DX11 to set input layout to input assembler stage IA
     m_device_context->IASetInputLayout( pVertextBuffer->m_input_layout );
 }
 
 void ImDeviceContext::setViewPortSize( float pWidth, float pHeight ) {
-    // specify view port from DX11
+    // create view port from DX11, and set the view port size
     D3D11_VIEWPORT viewPort = { };
     viewPort.MinDepth = 0.0f;
     viewPort.MaxDepth = 1.0f;
     viewPort.Width = pWidth;
     viewPort.Height = pHeight;
 
-    // call RS Set viewport
+    // call RSSetViewports from DX11 to set view port to rasterizer stage RS
     m_device_context->RSSetViewports( 1, &viewPort );
 }
 
 void ImDeviceContext::setVertexShader( VertexShader* pVertexShader ) {
+    // set vertex shader to vertex shader stage VS
     m_device_context->VSSetShader( pVertexShader->m_vertex_shader, nullptr, 0 );
-}
-
-void ImDeviceContext::DrawTriangleList( UINT pVertexCount, UINT pVertextStartIndex ) {
-    // call IA Set primitive topology
-    m_device_context->IASetPrimitiveTopology( D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST );
-    // call the draw method from DX11
-    m_device_context->Draw( pVertexCount, pVertextStartIndex );
 }

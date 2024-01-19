@@ -13,9 +13,9 @@ public:
     ~VertexBuffer( );
 public:
     // methods
-    bool load( void* pVerticesList, UINT pVertexSize, UINT pVerticesListSize, void* pShaderByteCode, UINT pShaderCodeSize );
-    bool release( );
+    bool load( void* pVerticesList, UINT pVertexSize, UINT pVerticesListSize, void* pShaderByteCode, size_t pShaderCodeSize );
     UINT getVericesListCount( );
+    bool release( );
 
 private:
     // attributes

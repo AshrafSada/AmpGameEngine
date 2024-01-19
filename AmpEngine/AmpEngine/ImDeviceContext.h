@@ -14,7 +14,7 @@ public:
 
 public:
     // methods
-    bool clearRenderTargetColor( SwapChain* pSwapChain, float red, float green, float blue, float alpha );
+    void clearRenderTargetColor( SwapChain* pSwapChain, float red, float green, float blue, float alpha );
     void drawTriangleList( UINT pVertexCount, UINT pStartVertexIndex );
     void drawTriangleStrip( UINT pVertexCount, UINT pStartVertexIndex );
     bool release( );
@@ -24,10 +24,6 @@ public:
     void setVertexBuffer( VertexBuffer* pVertextBuffer );
     void setViewPortSize( float pWidth, float pHeight );
     void setVertexShader( VertexShader* pVertexShader );
-
-public:
-    // vertex methods
-    void DrawTriangleList( UINT pVertexCount, UINT pVertextStartIndex );
 
 private:
     // private fields

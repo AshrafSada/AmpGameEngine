@@ -15,9 +15,9 @@ public:
     ~AppWindow( );
 
     // Inherited via WindowUi
-    void onCreate( ) override;
-    void onUpdate( ) override;
-    void onDestroy( ) override;
+    virtual void onCreate( ) override;
+    virtual void onUpdate( ) override;
+    virtual void onDestroy( ) override;
 
 private:
     SwapChain* m_swap_chain;

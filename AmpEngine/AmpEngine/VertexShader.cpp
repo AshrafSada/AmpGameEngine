@@ -35,9 +35,11 @@ bool VertexShader::init( const void* pShaderByteCode, size_t pShaderCodeSize ) {
     return true;
 }
 
-void VertexShader::release( ) {
+bool VertexShader::release( ) {
     if ( m_vertex_shader ) {
         m_vertex_shader->Release( );
+        return false;
     }
     delete this;
+    return true;
 }
