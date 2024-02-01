@@ -1,5 +1,4 @@
 #include "WindowUi.h"
-#include <iostream>
 
 // create a window pointer
 WindowUi* g_window = nullptr;
@@ -104,7 +103,7 @@ bool WindowUi::init( ) {
     return true;
 }
 
-bool WindowUi::isRunning( ) {
+bool WindowUi::isRunning( ) const {
     return m_is_running;
 }
 

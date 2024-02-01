@@ -1,4 +1,3 @@
-#include <iostream>
 #include "AppWindow.h"
 #include "LoggingBroker.h"
 
@@ -19,6 +18,7 @@ int main( ) {
         }
     }
     catch ( const std::exception& ex ) {
+        std::cout << "Exception: " << ex.what( ) << std::endl;
         LoggingBroker::logException( LoggingBroker::LOG_LEVEL_ERROR, "Failed to run the app", ex );
         throw;
     }

@@ -1,4 +1,6 @@
 #pragma once
+
+#include <iostream>
 #include "WinMsgMapper.h"
 
 class WindowUi {
@@ -6,7 +8,7 @@ public:
     WindowUi( );
 
     bool init( );
-    bool isRunning( );
+    bool isRunning( ) const;
     bool broadcast( );
     bool release( );
 

@@ -13,35 +13,11 @@
     <Filter Include="Platforms\WinOs\WinHandlers">
       <UniqueIdentifier>{1873b9b1-34f1-4d70-9db2-02707fd3e44e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engines">
-      <UniqueIdentifier>{bedae4af-9167-415b-bff0-781c32bc9073}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engines\Graphics">
-      <UniqueIdentifier>{39159705-0acb-4607-bce2-2a80f903e515}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engines\Swapping">
-      <UniqueIdentifier>{97fd9546-3916-4627-97cb-7f02f1f796c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engines\Contexts">
-      <UniqueIdentifier>{5a5ab3a9-bc71-4e22-9fe3-efdc04f5e886}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Logging">
       <UniqueIdentifier>{68f8e5fb-b39e-41ea-98c0-c20f7cdd90e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="VertexBuffers">
-      <UniqueIdentifier>{a5ab5999-edaa-46fe-a814-09ffa8df9b80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engines\Shaders">
-      <UniqueIdentifier>{493562bc-f7e2-4b65-b517-2260c22aace2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engines\Shaders\VetexShaders">
-      <UniqueIdentifier>{bb3181c5-440b-4258-ab56-cd329dcc3763}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Platforms\WinOs\Mappers">
       <UniqueIdentifier>{5b901ffb-ff54-4794-9703-5edf066c08a0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engines\Shaders\PixelShaders">
-      <UniqueIdentifier>{d02274a9-f367-4d52-8cb2-218095d8ffa9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -74,8 +50,5 @@
     <ClInclude Include="AppWindow.h">
       <Filter>Platforms\WinOs\WinHandlers</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
