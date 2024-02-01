@@ -3,6 +3,7 @@
 #include <iostream>
 #include <filesystem>
 #include <chrono>
+#include <winerror.h>
 
 using namespace std;
 using namespace std::chrono;
@@ -22,4 +23,6 @@ public:
 public:
     static void logException( LogLevel pLogLevel, const char* message, const std::exception& excep );
     static void logInformation( const char* message );
+    static void logError( const char* message );
+    static void logError( HRESULT hr, const char* message );
 };

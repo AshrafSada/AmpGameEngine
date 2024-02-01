@@ -4,6 +4,9 @@
 
 int main( ) {
     try {
+        // notifiying the user that application is running
+        std::cout << "Application is running..." << std::endl;
+
         LoggingBroker::logInformation( "Amp Engine Running..." );
 
         AppWindow app;

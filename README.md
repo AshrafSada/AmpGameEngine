@@ -72,6 +72,29 @@ The reason for supporting multiple graphics APIs is to support multiple platform
 
 We can later add support for other platforms like Linux and Mac.
 
+#### COM Component Object Model
+
+DirectX 11 is a COM (Component Object Model) based API, which means that it uses COM objects.
+
+COM is a binary-interface standard for software components introduced by Microsoft in 1993.
+
+COM works by defining interfaces that encapsulate data and functionality, and then uses pointers to these interfaces to access the data and functionality.
+
+When an application accesses a COM object, it is actually accessing a pointer to an interface, which is then used to access the data and functionality of the object.
+
+functional goals of COM:
+
+1. Language agnostic.
+2. Thread safe.
+3. Factory/Centric registry/ID.
+4. Polymorphic with interfaces.
+5. Binary encapsulation, client code separated from server code.
+6. Distributed object model (no language support).
+7. Resource allocation (memory management).
+8. Access location transparency (in-process, cross-process, cross-machine).
+9. Zero-sacrifice performance.
+10. Simplicity (extensible, and adaptable).
+
 #### DirectX 11
 
 DirectX 11 is proven to be the best graphics API for Windows, despite that DirectX 12 is included in Windows 10, game developers still prefer DirectX 11.

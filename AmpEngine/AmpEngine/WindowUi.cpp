@@ -1,4 +1,5 @@
 #include "WindowUi.h"
+#include <iostream>
 
 // create a window pointer
 WindowUi* g_window = nullptr;
@@ -6,6 +7,11 @@ WindowUi* g_window = nullptr;
 const LPCWSTR WINDOW_CLASS_NAME = L"AmpEngineWindowClass";
 // WindowProc is a callback function that handles messages sent to a window
 static LRESULT CALLBACK WindowProc( HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam ) {
+    // create static instance of window message mapper
+   // static WinMsgMapper wMsgMapper;
+    // output the message to the console
+   // std::cout << wMsgMapper( uMsg, lParam, wParam ) << std::endl;
+
     // sort through and find what code to run for the message given
     switch ( uMsg ) {
         case WM_CREATE:
@@ -45,7 +51,7 @@ WindowUi::WindowUi( ) {
 
 bool WindowUi::init( ) {
     // create the window class
-    WNDCLASSEX wc;
+    WNDCLASSEX wc = { 0 };
     wc.cbSize = sizeof( WNDCLASSEX );
     wc.style = CS_HREDRAW | CS_VREDRAW;
     wc.lpfnWndProc = WindowProc;
@@ -67,11 +73,11 @@ bool WindowUi::init( ) {
         g_window = this;
     }
 
-    // create the window and use the result as the handle
+    // create the window EX (unicode) and use the result as the handle
     m_hwnd = CreateWindowEx( NULL,
                             WINDOW_CLASS_NAME,     // name of the window class
                             L"Amp Game Engine",    // title of the window
-                            WS_OVERLAPPEDWINDOW,   // window style
+                            WS_OVERLAPPEDWINDOW | WS_MINIMIZEBOX | WS_SYSMENU,   // window style
                             CW_USEDEFAULT,         // position x of the window
                             CW_USEDEFAULT,         // position y of the window
                             1024,                  // width of the window
@@ -116,8 +122,8 @@ bool WindowUi::broadcast( ) {
         DispatchMessage( &msg );
     }
 
-    // relax the CPU for a 1ms
-    Sleep( 1 );
+    // relax the CPU for a 2ms
+    Sleep( 2 );
 
     // check if the message queue is empty
     if ( msg.message == WM_NULL ) {
